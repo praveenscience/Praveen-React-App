@@ -2,9 +2,18 @@ import { Component } from "react";
 import Header from "./Bootstrap/Header";
 import Container from "./Bootstrap/Container";
 import Card from "./Bootstrap/Card";
+import FormGroup from "./Bootstrap/FormGroup";
 
 class App extends Component {
-  state = {};
+  state = {
+    Name: "",
+    Email: ""
+  };
+  handleFormElementChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
   render() {
     return (
       <div className="App">
@@ -13,6 +22,42 @@ class App extends Component {
         <Header dark={true} className="AppHeader justify-content-center">
           Centrally Aligned Dark Header
         </Header>
+        <Container>
+          <div className="row pb-3">
+            <div className="col-12 col-sm-6">
+              <Card Header="Forms">
+                <form>
+                  <FormGroup
+                    Label="Name"
+                    Id="Name"
+                    Type="text"
+                    Value={this.state.Name}
+                    onChange={this.handleFormElementChange}
+                  />
+                  <FormGroup
+                    Label="Email"
+                    Id="Email"
+                    Type="email"
+                    Value={this.state.Email}
+                    onChange={this.handleFormElementChange}
+                  />
+                  <input
+                    type="submit"
+                    value="Save"
+                    className="btn btn-primary"
+                  />
+                </form>
+              </Card>
+            </div>
+            <div className="col-12 col-sm-6">
+              <Card className="mb-3 h-100" Header="State Value">
+                <pre className="bg-light border rounded p-1">
+                  {JSON.stringify(this.state, null, 2)}
+                </pre>
+              </Card>
+            </div>
+          </div>
+        </Container>
         <Container>
           <div className="row">
             <div className="col-12 col-sm-6 col-md-4 col-lg-3">
