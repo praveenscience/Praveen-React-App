@@ -39,7 +39,9 @@ const Login = ({ User, handleUserLogin }) => {
         <div className="col-12 col-sm-6 offset-3">
           <Card Header="Sign In">
             <form onSubmit={handleSubmit}>
-              {Error}
+              {Error && (
+                <div className="alert alert-danger text-center">{Error}</div>
+              )}
               <FormGroup
                 Label="Username"
                 Value={Username}
