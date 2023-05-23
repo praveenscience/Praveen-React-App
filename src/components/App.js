@@ -59,7 +59,13 @@ class App extends Component {
     ];
     return (
       <div className="App">
-        <Header to="/" Link={Link} dark={true} items={NavItems}>
+        <Header
+          to="/"
+          Link={Link}
+          dark={true}
+          items={NavItems}
+          className="AppHeader"
+        >
           React App (Prav)
         </Header>
         <Routes>
