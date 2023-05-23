@@ -11,8 +11,28 @@ class App extends Component {
   state = {
     User: false
   };
+  handleUserLogin = User => {
+    this.setState({ User });
+  };
   render() {
     const User = this.state.User;
+    const ProfileLink = (
+      <Link className="nav-link" to="/Profile">
+        Profile
+      </Link>
+    );
+    const LogoutLink = (
+      <a
+        className="nav-link"
+        href="/Logout"
+        onClick={e => {
+          e.preventDefault();
+          this.handleUserLogin(false);
+        }}
+      >
+        Logout
+      </a>
+    );
     const UserItems = !User
       ? [
           <Link className="nav-link" to="/Login">
@@ -21,24 +41,13 @@ class App extends Component {
         ]
       : User.Role === "Admin"
       ? [
-          <Link className="nav-link" to="/Profile">
-            Profile
-          </Link>,
+          ProfileLink,
           <Link className="nav-link" to="/Admin">
             Admin
           </Link>,
-          <Link className="nav-link" to="/Logout">
-            Logout
-          </Link>
+          LogoutLink
         ]
-      : [
-          <Link className="nav-link" to="/Profile">
-            Profile
-          </Link>,
-          <Link className="nav-link" to="/Logout">
-            Logout
-          </Link>
-        ];
+      : [ProfileLink, LogoutLink];
     const NavItems = [
       <Link className="nav-link" to="/">
         Home
@@ -54,10 +63,22 @@ class App extends Component {
           React App (Prav)
         </Header>
         <Routes>
-          <Route path="/Login" element={<Login />} />
+          <Route
+            path="/Login"
+            element={
+              <Login User={User} handleUserLogin={this.handleUserLogin} />
+            }
+          />
           <Route path="/Docs" element={<Docs />} />
           <Route element={<PrivateRoute User={User} />}>
-            <Route path="/LoggedUser" element={<p>You're Logged In!</p>} />
+            <Route
+              path="/Profile"
+              element={
+                <p>
+                  You're Logged In as {User.Name} and you're a {User.Role}!
+                </p>
+              }
+            />
             <Route element={<AdminRoute User={User} />}>
               <Route
                 path="/Admin"
