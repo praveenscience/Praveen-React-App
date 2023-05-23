@@ -49,7 +49,7 @@ class App extends Component {
                 </form>
               </Card>
             </div>
-            <div className="col-12 col-sm-6">
+            <div className="col-12 col-sm-6 mt-3 mt-sm-0">
               <Card className="mb-3 h-100" Header="State Value">
                 <pre className="bg-light border rounded p-1">
                   {JSON.stringify(this.state, null, 2)}
